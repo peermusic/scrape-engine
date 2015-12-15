@@ -15,8 +15,8 @@ var scrapeEngine = require('scrape-engine')
 ```js
 var scrapeEngine = require('scrape-Engine')
 
-//Get a list of object, which contains similar artist information and the url 
-scrapeEngine.getSimilarArtist('Adele', function(err, list){
+// Get a list of object, which contains similar artist information and the url 
+scrapeEngine.getSimilarArtist('Adele', function (err, list) {
   if (err) {
     console.log('Error: ' + err)
     return
@@ -24,8 +24,8 @@ scrapeEngine.getSimilarArtist('Adele', function(err, list){
   console.log('list: ' + list)
 })
 
-//Get a list of object, which contains similar track information and the url 
-scrapeEngine.getSimilarTitel('Rolling in the deep', function(err, list){
+// Get a list of object, which contains similar track information and the url 
+scrapeEngine.getSimilarTitel('Rolling in the deep', function (err, list) {
   if (err) {
     console.log('Error: ' + err)
     return
@@ -33,8 +33,8 @@ scrapeEngine.getSimilarTitel('Rolling in the deep', function(err, list){
   console.log('list: ' + list)
 })
 
-//Get the cover of an album as a base64 encoded JSON
-scrapeEngine.getCover('21', 'Adele', function(err, img){
+// Get the cover of an album as a base64 encoded JSON
+scrapeEngine.getCover('21', 'Adele', function (err, img) {
   if (err) {
     console.log('Error: ' + err)
     return
