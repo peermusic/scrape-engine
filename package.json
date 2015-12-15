@@ -3,6 +3,14 @@
   "version": "0.1.0",
   "description": "Module for scraping last.fm",
   "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "dependencies": {
+    "cheerio": "^0.19.0",
+    "got": "^5.2.1"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "standard"
   },
@@ -18,9 +26,5 @@
   "bugs": {
     "url": "https://github.com/peermusic/scrape-engine/issues"
   },
-  "homepage": "https://github.com/peermusic/scrape-engine#readme",
-  "dependencies": {
-  "cheerio": "^0.19.0",
-  "got": "^5.2.1",
-  }
+  "homepage": "https://github.com/peermusic/scrape-engine#readme"
 }
