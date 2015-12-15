@@ -18,5 +18,9 @@
   "bugs": {
     "url": "https://github.com/peermusic/scrape-engine/issues"
   },
-  "homepage": "https://github.com/peermusic/scrape-engine#readme"
+  "homepage": "https://github.com/peermusic/scrape-engine#readme",
+  "dependencies": {
+  "cheerio": "^0.19.0",
+  "got": "^5.2.1",
+  }
 }
