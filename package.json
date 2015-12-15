@@ -1,0 +1,22 @@
+{
+  "name": "scrape-engine",
+  "version": "0.1.0",
+  "description": "Module for scraping last.fm",
+  "main": "index.js",
+  "scripts": {
+    "test": "standard"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/peermusic/scrape-engine.git"
+  },
+  "keywords": [
+    "lastfm"
+  ],
+  "author": "https://github.com/orgs/peermusic/",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/peermusic/scrape-engine/issues"
+  },
+  "homepage": "https://github.com/peermusic/scrape-engine#readme"
+}
