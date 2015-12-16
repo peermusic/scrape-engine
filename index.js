@@ -49,8 +49,8 @@ ScrapeEngine.prototype.getCover = function (album, artist, callback) {
         return
       }
 
-      var base64 = new Buffer(html).toString('base64')
-      callback(err, imgString)
+      var base64 = new Buffer(html, 'binary').toString('base64')
+      callback(err, base64)
     })
   })
 }
