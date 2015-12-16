@@ -14,7 +14,7 @@ function ScrapeEngine () {
   // $(selection).find('ol.grid-items .grid-items-item a.link-block-target')
   this.filter = [
     '.col-main  ol.grid-items .grid-items-item a.link-block-target ', // Target: Artist 2step
-    '.col-main h2:contains(\'Album\')', // Target: Album 2step
+    ".col-main h2:contains('Album')", // Target: Album 2step
     '.chartlist .chartlist-name a.link-block-target', // Target: Titels
     '.col-main .grid-items-section .grid-items-item-main-text a.link-block-target', // Similar Artist 2Step
     '.col-main .grid-items a.link-block-target', // Similar Artist over "+similar" URL
@@ -43,13 +43,13 @@ ScrapeEngine.prototype.getCover = function (album, artist, callback) {
       return
     }
 
-    got(coverURL, function (err, html) {
+    got(coverURL, {encoding: null}, function (err, data) {
       if (err) {
-        callback(err, html)
+        callback(err, data)
         return
       }
 
-      var base64 = new Buffer(html, 'binary').toString('base64')
+      var base64 = new Buffer(data, 'binary').toString('base64')
       callback(err, base64)
     })
   })
@@ -86,7 +86,7 @@ ScrapeEngine.prototype.getCoverURL = function (album, artist, callback) {
   })
 }
 
-//Get the url of an specific album
+// Get the url of an specific album
 ScrapeEngine.prototype.getURLAlbum = function (album, callback) {
   var self = this
   var list = []
