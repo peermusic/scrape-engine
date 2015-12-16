@@ -14,7 +14,7 @@ function ScrapeEngine () {
   // $(selection).find('ol.grid-items .grid-items-item a.link-block-target')
   this.filter = [
     '.col-main  ol.grid-items .grid-items-item a.link-block-target ', // Target: Artist 2step
-    ".col-main h2:contains('Album')", // Target: Album 2step
+    '.col-main h2:contains(\'Album\')', // Target: Album 2step
     '.chartlist .chartlist-name a.link-block-target', // Target: Titels
     '.col-main .grid-items-section .grid-items-item-main-text a.link-block-target', // Similar Artist 2Step
     '.col-main .grid-items a.link-block-target', // Similar Artist over "+similar" URL
@@ -26,11 +26,12 @@ function ScrapeEngine () {
     '.chartlist .chartlist-name a.link-block-target', // Tag: Top Titels
     // ----------------------------------------------------------------------------//
     '.col-main .grid-items-section .grid-items-item-main-text a.link-block-target', // Tag: Artists
-    '.album-grid .album-grid-item>a', // Tag: Albums, content: el.find('p').texst()
+    '.album-grid .album-grid-item>a', // Tag: Albums, content: el.find('p').text()
     '.chartlist .chartlist-name a.link-block-target', // Tag: Titel
     '.header-crumb', // Title, Album: Artist
     '.primary-album .metadata-display a', // Title: Album
     // ----------------------------------------------------------------------------//
+    'li.tag', // Title: Genre
     '.header-avatar img' // Album: Cover, href: el.attr('src'), content: el.attr('alt')
   ]
 }
@@ -72,7 +73,7 @@ ScrapeEngine.prototype.getCoverURL = function (album, artist, callback) {
       }
 
       var $ = cheerio.load(html)
-      var list = $(self.filter[15]).map(function (i, el) {
+      var list = $(self.filter[16]).map(function (i, el) {
         el = $(el)
         var img = {
           src: el.attr('src'),
@@ -189,6 +190,27 @@ ScrapeEngine.prototype.getSimilarTitel = function (titel, callback) {
       }).get()
       callback(err, list)
     })
+  })
+}
+
+// Get the metadata of a specific titel
+ScrapeEngine.prototype.getMetadata = function (url, titel, album, artist, callback, ) {
+  got(url, function(err, html){
+    var metadata = {}
+    // set album if already available
+    if (album !== undefined) {
+      metadata.album = album
+    }
+
+    // set artist if already available
+    if (artist !== undefined) {
+      metadata.artist = artist
+    }
+
+    metadata.artist = $(self.filter[13])
+    metadata.album = $(self.filter[14])
+    metadata.genre = $(self.filter[14])
+    callback(err, metadata)
   })
 }
 
