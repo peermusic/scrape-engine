@@ -194,7 +194,7 @@ ScrapeEngine.prototype.getSimilarTitel = function (titel, callback) {
 }
 
 // Get the metadata of a specific titel
-ScrapeEngine.prototype.getMetadata = function (url, titel, album, artist, callback, ) {
+ScrapeEngine.prototype.getMetadata = function (url, titel, album, artist, callback) {
   got(url, function(err, html){
     var metadata = {}
     // set album if already available
