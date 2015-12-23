@@ -10,7 +10,7 @@ engine.getSimilarArtist('Adele', function (err, list) {
   console.log('list: ' + list)
 })
 
-engine.getSimilarTitel('Rolling in the deep', function (err, list) {
+engine.getSimilarTitle('Rolling in the deep', function (err, list) {
   if (err) {
     console.log('Error: ' + err)
     return

@@ -15,23 +15,23 @@ function ScrapeEngine () {
   this.filter = [
     '.col-main  ol.grid-items .grid-items-item a.link-block-target ', // Target: Artist 2step
     '.col-main h2:contains(\'Album\')', // Target: Album 2step
-    '.chartlist .chartlist-name a.link-block-target', // Target: Titels
+    '.chartlist .chartlist-name a.link-block-target', // Target: Titles
     '.col-main .grid-items-section .grid-items-item-main-text a.link-block-target', // Similar Artist 2Step
     '.col-main .grid-items a.link-block-target', // Similar Artist over "+similar" URL
     // ----------------------------------------------------------------------------//
-    '.col-main .grid-items-section .grid-items-item-main-text a.link-block-target', // Similar titels
-    '.header-tags a', // Genre: Artist, Titel, Album
+    '.col-main .grid-items-section .grid-items-item-main-text a.link-block-target', // Similar Titles
+    '.header-tags a', // Genre: Artist, Title, Album
     '.col-main .grid-items-section .grid-items-item-main-text a.link-block-target', // Tag: Top Artists 2Step
     '.col-main .grid-items-section .grid-items-item-main-text a.link-block-target', // Tag: Top Albums 2Step
-    '.chartlist .chartlist-name a.link-block-target', // Tag: Top Titels
+    '.chartlist .chartlist-name a.link-block-target', // Tag: Top Titles
     // ----------------------------------------------------------------------------//
     '.col-main .grid-items-section .grid-items-item-main-text a.link-block-target', // Tag: Artists
     '.album-grid .album-grid-item>a', // Tag: Albums, content: el.find('p').text()
-    '.chartlist .chartlist-name a.link-block-target', // Tag: Titel
+    '.chartlist .chartlist-name a.link-block-target', // Tag: Title
     '.header-crumb', // Title, Album: Artist
     '.primary-album .metadata-display a', // Title: Album
     // ----------------------------------------------------------------------------//
-    'li.tag', // Title: Genre
+    'li.tag a', // Title: Genre
     '.header-avatar img' // Album: Cover, href: el.attr('src'), content: el.attr('alt')
   ]
 }
@@ -162,7 +162,7 @@ ScrapeEngine.prototype.getURLArtist = function (artist, callback) {
   })
 }
 
-// Get the metadata of titel
+// Get the metadata of title
 ScrapeEngine.prototype.getMetadata = function (list, result, callback) {
   console.log('Result:' + result)
   console.log('Result.length:' + result.length)
@@ -180,7 +180,7 @@ ScrapeEngine.prototype.getMetadata = function (list, result, callback) {
 
     metadata.artist = $(self.filter[13]).text()
     metadata.album = $(self.filter[14]).text()
-    metadata.titel = list[result.length].content
+    metadata.title = list[result.length].content
     metadata.genre = $(self.filter[15]).first().text()
     result.push(metadata)
     console.log('Result:' + result)
@@ -194,17 +194,17 @@ ScrapeEngine.prototype.getMetadata = function (list, result, callback) {
   })
 }
 
-// Get a list of object, which contains similar titel information and the url
-ScrapeEngine.prototype.getSimilarTitel = function (titel, callback) {
+// Get a list of object, which contains similar title information and the url
+ScrapeEngine.prototype.getSimilarTitle = function (title, callback) {
   var self = this
   var result = []
-  this.getURLTitel(titel, function (err, titelURL) {
+  this.getURLTitle(title, function (err, titleURL) {
     if (err) {
-      callback(err, titelURL)
+      callback(err, titleURL)
       return
     }
 
-    var url = self.lastfmURL + titelURL
+    var url = self.lastfmURL + titleURL
     got(url, function (err, html) {
       if (err) {
         callback(err, html)
@@ -226,11 +226,11 @@ ScrapeEngine.prototype.getSimilarTitel = function (titel, callback) {
   })
 }
 
-// Get the url of a specific titel
-ScrapeEngine.prototype.getURLTitel = function (titel, callback) {
+// Get the url of a specific title
+ScrapeEngine.prototype.getURLTitle = function (title, callback) {
   var self = this
   var list = []
-  got(this.createQueryURL(null, null, titel), function (err, html) {
+  got(this.createQueryURL(null, null, title), function (err, html) {
     if (err) {
       callback(err, html)
       return
@@ -251,7 +251,7 @@ ScrapeEngine.prototype.getURLTitel = function (titel, callback) {
 }
 
 // Creates an query url with the passed metadata
-ScrapeEngine.prototype.createQueryURL = function (artist, album, titel) {
+ScrapeEngine.prototype.createQueryURL = function (artist, album, title) {
   var result = this.lastfmURL + '/search?q='
   for (var i = 0; i < arguments.length; i++) {
     if (arguments[i]) {
