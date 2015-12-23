@@ -162,9 +162,42 @@ ScrapeEngine.prototype.getURLArtist = function (artist, callback) {
   })
 }
 
+// Get the metadata of titel
+ScrapeEngine.prototype.getMetadata = function (list, result, callback) {
+  console.log('Result:' + result)
+  console.log('Result.length:' + result.length)
+  var self = this
+  var url = self.lastfmURL + list[result.length].href
+  console.log('URL: ' + url)
+
+  got(url, function(err, html){
+    if (err) {
+      callback(err, html)
+      return
+    }
+    var $ = cheerio.load(html)
+    var metadata = {}
+
+    metadata.artist = $(self.filter[13]).text()
+    metadata.album = $(self.filter[14]).text()
+    metadata.titel = list[result.length].content
+    metadata.genre = $(self.filter[15]).first().text()
+    result.push(metadata)
+    console.log('Result:' + result)
+
+    if (list.length !== result.length ){
+      self.getMetadata(list, result, callback)
+    } else {
+      callback(err, result)
+    }
+
+  })
+}
+
 // Get a list of object, which contains similar titel information and the url
 ScrapeEngine.prototype.getSimilarTitel = function (titel, callback) {
   var self = this
+  var result = []
   this.getURLTitel(titel, function (err, titelURL) {
     if (err) {
       callback(err, titelURL)
@@ -188,29 +221,8 @@ ScrapeEngine.prototype.getSimilarTitel = function (titel, callback) {
         console.log(row)
         return row
       }).get()
-      callback(err, list)
+      self.getMetadata(list, result, callback)
     })
-  })
-}
-
-// Get the metadata of a specific titel
-ScrapeEngine.prototype.getMetadata = function (url, titel, album, artist, callback) {
-  got(url, function(err, html){
-    var metadata = {}
-    // set album if already available
-    if (album !== undefined) {
-      metadata.album = album
-    }
-
-    // set artist if already available
-    if (artist !== undefined) {
-      metadata.artist = artist
-    }
-
-    metadata.artist = $(self.filter[13])
-    metadata.album = $(self.filter[14])
-    metadata.genre = $(self.filter[14])
-    callback(err, metadata)
   })
 }
 
